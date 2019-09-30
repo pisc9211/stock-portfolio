@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 const SignIn = () => {
   return (
     <div className="container vh-100">
@@ -16,7 +18,7 @@ const SignIn = () => {
               <input type="email" id="inputPassword" className="form-control" placeholder="Password" />
             </div>
             <button type="submit" className="btn btn-primary d-block w-100 mt-5">Sign In</button>
-            <button type="button" className="btn btn-primary d-block w-100 mt-3">Register</button>
+            <Link to="/register" type="button" className="btn btn-primary d-block w-100 mt-3">Register</Link>
           </div> 
         </form>
       </div>
