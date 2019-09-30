@@ -13,7 +13,7 @@ const Transaction = () => {
           <Link className="nav-link text-decoration-none disabled" to="/transaction" >Transaction</Link>
         </li>
       </ul>
-      <div class="h2">Transactions</div>
+      <div className="h2">Transactions</div>
     </div>
   )
 }

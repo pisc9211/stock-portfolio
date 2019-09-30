@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import app from '../../firebase'
 
 const Portfolio = () => {
   return (
@@ -10,6 +11,9 @@ const Portfolio = () => {
         </li>
         <li className="nav-item">
           <Link className="nav-link text-decoration-none" to="/transaction">Transaction</Link>
+        </li>
+        <li className="nav-item">
+          <a onClick={() => app.auth().signOut()} className="nav-link text-decoration-none">Sign Out</a>
         </li>
       </ul>
       <div className="h2">Portfolio</div>

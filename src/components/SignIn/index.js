@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, withRouter, Redirect } from 'react-router-dom'
+import app from '../../firebase'
+import { AuthContext } from '../../Auth'
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -12,6 +14,10 @@ const SignIn = () => {
   }
 
   const handleOnChange = e => update[e.target.id](e.target.value);
+
+  const { currentUser } = useContext(AuthContext)
+
+  if (currentUser) return <Redirect to="/" />
 
   return (
     <div className="container vh-100">

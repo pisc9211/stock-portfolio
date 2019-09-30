@@ -17,11 +17,10 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="app-container bg-white">
-          <Route path="/" exact component={SignIn} />
-          <PrivateRoute component={Portfolio} path="/" />
+          <PrivateRoute component={Portfolio} exact path="/" />
+          {/* <PrivateRoute component={Transaction} exact path="/" /> */}
+          <Route path="/signin" component={SignIn} />
           <Route path="/register" component={Register} />
-          <Route path="/portfolio" component={Portfolio} />
-          <Route path="/transaction" component={Transaction} />
         </div>
       </Router>
     </AuthProvider>
