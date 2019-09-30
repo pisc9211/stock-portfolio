@@ -20,11 +20,11 @@ const Register = () => {
   return (
     <div className="container vh-100">
       <div className="row align-items-center h-100">
-        <form className="col-12 col-md-6 offset-md-3 bg-white rounded shadow-lg">
+        <form className="col-10 col-md-6 col-lg-4 offset-1 offset-md-3 offset-lg-4 bg-white rounded shadow-lg">
           <div className="py-5 mb-3">
             <h2 className="text-center text-uppercase">Register</h2>
             <div className="form-label-group my-3">
-              <label htmlFor="firstName" className="mb-1 pl-2">First Name</label>
+              <label htmlFor="firstName" className="mb-1 pl-2 small">First Name</label>
               <input value={firstName} onChange={handleOnChange} type="text" id="firstName" className="form-control" placeholder="First Name" required />
             </div>
             <div className="form-label-group my-3">
