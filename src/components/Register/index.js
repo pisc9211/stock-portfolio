@@ -23,7 +23,11 @@ const Register = ({ history }) => {
     e.preventDefault()
     const {email, password, firstName, lastName} = e.target.elements;
     try {
-      await app.auth().createUserWithEmailAndPassword(email.value, password.value).then((user) => console.log(user))
+      await app.auth().createUserWithEmailAndPassword(email.value, password.value)
+      await app.auth().currentUser.updateProfile({
+        displayName: `${firstName.value} ${lastName.value}`
+      })
+      await console.log(app.auth().currentUser.displayName)
       history.push('/')
     } catch (error) {
       alert(error)
@@ -53,7 +57,7 @@ const Register = ({ history }) => {
               <input value={password} onChange={handleOnChange} type="password" id="password" className="form-control" placeholder="Password" required />
             </div>
             <button type="submit" className="btn btn-primary d-block w-100 mt-5">Register</button>
-            <Link to="/" className="btn btn-primary d-block w-100 mt-3">Sign In</Link>
+            <Link to="/signin" className="btn btn-primary d-block w-100 mt-3">Sign In</Link>
           </div> 
         </form>
       </div>
