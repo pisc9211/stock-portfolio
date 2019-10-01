@@ -13,7 +13,7 @@ const Portfolio = () => {
           <Link className="nav-link text-decoration-none" to="/transaction">Transaction</Link>
         </li>
         <li className="nav-item">
-          <a onClick={() => app.auth().signOut()} className="nav-link text-decoration-none">Sign Out</a>
+          <button onClick={() => app.auth().signOut()} className="nav-link text-decoration-none">Sign Out</button>
         </li>
       </ul>
       <div className="h2">Portfolio</div>

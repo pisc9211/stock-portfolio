@@ -1,13 +1,12 @@
 import React from 'react'
-import { AuthProvider } from '../Auth'
+import { AuthProvider } from '../context/Auth'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import SignIn from './SignIn'
 import Register from './Register'
-import Portfolio from './Portfolio'
-import Transaction from './Transaction'
+import Home from './Home'
 
-import PrivateRoute from '../PrivateRoute'
+import PrivateRoute from './PrivateRoute'
 
 import './App.css'
 
@@ -17,8 +16,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <div className="app-container bg-white">
-          <PrivateRoute component={Portfolio} exact path="/" />
-          {/* <PrivateRoute component={Transaction} exact path="/" /> */}
+          <PrivateRoute component={Home} exact path="/" />
           <Route path="/signin" component={SignIn} />
           <Route path="/register" component={Register} />
         </div>

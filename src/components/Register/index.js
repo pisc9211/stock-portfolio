@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import app from '../../firebase'
-import { AuthContext } from '../../Auth'
+import { AuthContext } from '../../context/Auth'
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const Register = ({ history }) => {
     e.preventDefault()
     const {email, password, firstName, lastName} = e.target.elements;
     try {
-      await app.auth().createUserWithEmailAndPassword(email.value, password.value)
+      await app.auth().createUserWithEmailAndPassword(email.value, password.value).then((user) => console.log(user))
       history.push('/')
     } catch (error) {
       alert(error)

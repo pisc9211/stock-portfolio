@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react'
 
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import app from '../../firebase'
-import { AuthContext } from '../../Auth'
+import { AuthContext } from '../../context/Auth'
 
-const SignIn = () => {
+const SignIn = ({ history }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -15,6 +15,19 @@ const SignIn = () => {
 
   const handleOnChange = e => update[e.target.id](e.target.value);
 
+  const handleOnSubmit = async e => {
+    e.preventDefault()
+    const { email, password } = e.target.elements
+    console.log(email.value, password.value)
+    try {
+      await app.auth().signInWithEmailAndPassword(email.value, password.value).then((user) => console.log(user))
+      history.push('/')
+    } catch (error) {
+      alert(error)
+    }
+
+  }
+
   const { currentUser } = useContext(AuthContext)
 
   if (currentUser) return <Redirect to="/" />
@@ -22,7 +35,7 @@ const SignIn = () => {
   return (
     <div className="container vh-100">
       <div className="row align-items-center h-100">
-        <form className="col-10 col-md-6 col-lg-4 offset-1 offset-md-3 offset-lg-4 bg-white rounded shadow-lg">
+        <form onSubmit={handleOnSubmit} className="col-10 col-md-6 col-lg-4 offset-1 offset-md-3 offset-lg-4 bg-white rounded shadow-lg">
           <div className="py-5 mb-3">
             <h2 className="text-center text-uppercase">Sign In</h2>
             <div className="form-label-group my-3">
