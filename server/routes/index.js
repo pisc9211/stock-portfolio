@@ -18,8 +18,16 @@ apiRouter.get("/user/:uid", (req, res) => {
 });
 
 apiRouter.post('/user/addstock', (req, res) => {
-  console.log(req)
-  res.send('okay!')
+  db.addStock(req.body)
+    .then(data => res.json(data))
+    .catch(e => console.error(e))
+})
+
+apiRouter.post('/user/updatestock', (req, res) => {
+  db.updateStock(req.body) 
+    .then(data => res.json(data))
+    .catch(e => res.send(e))
+  
 })
 
 module.exports = apiRouter

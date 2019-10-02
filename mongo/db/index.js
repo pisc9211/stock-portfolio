@@ -20,26 +20,69 @@ let getUser = uid => {
   })
 }
 
-let addTransaction = data => {
-  let { uid, stockName, tickerName, stockAmount, tranasctionPrice } = data
+// let addTransaction = data => {
+//   console.log('running addtransaction')
+//   let { uid, stockName, tickerName, stockAmount, tranasctionPrice } = data
+//   let newTransaction = new Transaction({
+//     uid: uid,
+//     stockName: stockName,
+//     tickerName: tickerName,
+//     transactionType: 'buy',
+//     stockAmount: stockAmount,
+//     tranasctionPrice: tranasctionPrice
+//   })
+
+//   return User.updateOne({ uid: uid }, { $push: { transactions: newTransaction } })
+// };
+
+let addStock = data => {
+  console.log('running addStock')
+  let { uid, tickerName, stockName, stockOwned, stockAmount, transactionPrice } = data
+  let newStock = new Stock ({
+    tickerName: tickerName,
+    stockName: stockName,
+    stockOwned: stockOwned
+  })
+
   let newTransaction = new Transaction({
     uid: uid,
     stockName: stockName,
     tickerName: tickerName,
-    transactionType: 'buy',
+    transactionType: "buy",
     stockAmount: stockAmount,
-    tranasctionPrice: tranasctionPrice
-  })
-  return User.updateOne({ uid: uid }, { $push: { transactions: newTransaction } })
-};
+    tranasctionPrice: transactionPrice
+  });
+
+  return User.updateOne({ uid: uid }, { $push: { stocks: newStock, transactions: newTransaction }})
+}
 
 let updateStock = data => {
-  let { uid, tickerName, amount } = data
-  return User.find({ uid: uid, 'stocks.name': tickerName }, {$set: {'stocks.stockOwned': amount}}, {new: true, upsert: true}, (err) => console.error(err))
+  console.log('running updateStock')
+  let { uid, tickerName, stockOwned, stockName, stockAmount, transactionPrice } = data
+
+  let newTransaction = new Transaction({
+    uid: uid,
+    stockName: stockName,
+    tickerName: tickerName,
+    transactionType: "buy",
+    stockAmount: stockAmount,
+    tranasctionPrice: transactionPrice
+  });
+
+  return User.updateOne({ uid: uid }, { $addToSet: { transactions: newTransaction } })
+    .then(() => 
+      User.findOneAndUpdate(
+        { uid: uid, 'stocks.tickerName': tickerName }, 
+        { $set: {'stocks.$.stockOwned': stockOwned} }, 
+        { new: true, upsert: true }, 
+        (err) => console.error('error:', err))
+    )
+  
 }
 
 module.exports = {
   getUser,
-  addTransaction,
-  updateStock
+  // addTransaction,
+  updateStock,
+  addStock
 }

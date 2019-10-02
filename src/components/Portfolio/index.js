@@ -4,7 +4,7 @@ import app from '../../firebase'
 import PortfolioList from './PortfolioList'
 import Buy from './Buy'
 
-const Portfolio = ({ user }) => {
+const Portfolio = ({ user, getUser }) => {
   return (
     <div className="container">
       <ul className="nav justify-content-end">
@@ -21,10 +21,10 @@ const Portfolio = ({ user }) => {
       <div className="h2">Portfolio</div>
       <div className="row">
         <div className="col-10 col-md-7 col-lg-8 border border-warning">
-          <PortfolioList />
+          <PortfolioList stocks={user ? user.stocks : null} getUser={getUser}/>
         </div>
         <div className="col-10 col-md-5 col-lg-4 border border-success">
-          <Buy user={user}/>
+          <Buy user={user} getUser={getUser}/>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ let UserSchema = new Schema({
   },
   balance: {type: Number, default: 5000},
   stocks: [StockSchema],
-  transactions: [TransactionSchema]
+  transactions: [{type: TransactionSchema, unique: true}]
 })
 
 let User = mongoose.model('User', UserSchema)
