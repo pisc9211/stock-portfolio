@@ -4,9 +4,7 @@ const Schema = mongoose.Schema
 let StockSchema = new Schema({
   stockName: String,
   tickerName: String,
-  
-  stockOwned: Number,
-  transactions: []
+  stockOwned: Number
 })
 
 let Stock = mongoose.model('Stock', StockSchema)

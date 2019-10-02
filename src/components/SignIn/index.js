@@ -5,22 +5,18 @@ import app from '../../firebase'
 import { AuthContext } from '../../context/Auth'
 
 const SignIn = ({ history }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
-  const update = {
-    email: setEmail,
-    password: setPassword
-  }
+  const [form, setForm] = useState({
+    email: '',
+    password: ''
+  })
 
-  const handleOnChange = e => update[e.target.id](e.target.value);
+  const handleOnChange = e => setForm({...form, [e.target.id]: e.target.value})
 
   const handleOnSubmit = async e => {
     e.preventDefault()
-    const { email, password } = e.target.elements
-    console.log(email.value, password.value)
     try {
-      await app.auth().signInWithEmailAndPassword(email.value, password.value).then((user) => console.log(user))
+      await app.auth().signInWithEmailAndPassword(form.email, form.password).then((user) => console.log(user))
       history.push('/')
     } catch (error) {
       alert(error)
@@ -40,11 +36,11 @@ const SignIn = ({ history }) => {
             <h2 className="text-center text-uppercase">Sign In</h2>
             <div className="form-label-group my-3">
               <label htmlFor="email" className="mb-1 pl-2">Email</label>
-              <input value={email} onChange={handleOnChange} type="email" id="email" className="form-control" placeholder="Email Address" />
+              <input value={form.email} onChange={handleOnChange} type="email" id="email" className="form-control" placeholder="Email Address" />
             </div>
             <div className="form-label-group my-3">
               <label htmlFor="password" className="mb-1 pl-2">Password</label>
-              <input value={password} onChange={handleOnChange} type="password" id="password" className="form-control" placeholder="Password" />
+              <input value={form.password} onChange={handleOnChange} type="password" id="password" className="form-control" placeholder="Password" />
             </div>
             <button type="submit" className="btn btn-primary d-block w-100 mt-5">Sign In</button>
             <Link to="/register" type="button" className="btn btn-primary d-block w-100 mt-3">Register</Link>
@@ -55,4 +51,4 @@ const SignIn = ({ history }) => {
   );
 }
 
-export default SignIn
+export default withRouter(SignIn)

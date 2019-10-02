@@ -4,30 +4,24 @@ import { Link, withRouter, Redirect } from 'react-router-dom'
 import app from '../../firebase'
 import { AuthContext } from '../../context/Auth'
 
-const Register = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const Register = ({ history }) => {;
 
-  const update = {
-    email: setEmail,
-    password: setPassword,
-    firstName: setFirstName,
-    lastName: setLastName
-  };
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  })
 
-  const handleOnChange = e => update[e.target.id](e.target.value)
+  const handleOnChange = e => setForm({...form, [e.target.id]: e.target.value})
 
   const handleOnSubmit = async e => {
     e.preventDefault()
-    const {email, password, firstName, lastName} = e.target.elements;
     try {
-      await app.auth().createUserWithEmailAndPassword(email.value, password.value)
+      await app.auth().createUserWithEmailAndPassword(form.email, form.password)
       await app.auth().currentUser.updateProfile({
-        displayName: `${firstName.value} ${lastName.value}`
+        displayName: `${form.firstName} ${form.lastName}`
       })
-      await console.log(app.auth().currentUser.displayName)
       history.push('/')
     } catch (error) {
       alert(error)
@@ -42,19 +36,19 @@ const Register = ({ history }) => {
             <h2 className="text-center text-uppercase">Register</h2>
             <div className="form-label-group my-3">
               <label htmlFor="firstName" className="mb-1 pl-2 small">First Name</label>
-              <input value={firstName} onChange={handleOnChange} type="text" id="firstName" className="form-control" placeholder="First Name" required />
+              <input value={form.firstName} onChange={handleOnChange} type="text" id="firstName" className="form-control" placeholder="First Name" required />
             </div>
             <div className="form-label-group my-3">
               <label htmlFor="lastName" className="mb-1 pl-2">Last Name</label>
-              <input value={lastName} onChange={handleOnChange} type="text" id="lastName" className="form-control" placeholder="Last Name" required />
+              <input value={form.lastName} onChange={handleOnChange} type="text" id="lastName" className="form-control" placeholder="Last Name" required />
             </div>
             <div className="form-label-group my-3">
               <label htmlFor="email" className="mb-1 pl-2">Email</label>
-              <input value={email} onChange={handleOnChange} type="email" id="email" className="form-control" placeholder="Email Address" required />
+              <input value={form.email} onChange={handleOnChange} type="email" id="email" className="form-control" placeholder="Email Address" required />
             </div>
             <div className="form-label-group my-3">
               <label htmlFor="password" className="mb-1 pl-2">Password</label>
-              <input value={password} onChange={handleOnChange} type="password" id="password" className="form-control" placeholder="Password" required />
+              <input value={form.password} onChange={handleOnChange} type="password" id="password" className="form-control" placeholder="Password" required />
             </div>
             <button type="submit" className="btn btn-primary d-block w-100 mt-5">Register</button>
             <Link to="/signin" className="btn btn-primary d-block w-100 mt-3">Sign In</Link>
@@ -65,4 +59,4 @@ const Register = ({ history }) => {
   )
 }
 
-export default Register
+export default withRouter(Register)

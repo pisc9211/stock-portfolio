@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
-
-console.log(process.env.REACT_APP_MONGODB_USERNAME);
+const User = require('./User')
+const { Stock } = require('./Stock')
+const { Transaction } = require('Transaction')
 
 mongoose.connect(
   `mongodb://${process.env.REACT_APP_MONGODB_USERNAME || 'root'}:${process.env.REACT_APP_MONGODB_PASSWORD || 'password123'}@ds229118.mlab.com:29118/stock-portfolio`,

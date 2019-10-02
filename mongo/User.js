@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const StockSchema = require('./Url').StockSchema
+const { StockSchema } = require('./Url')
+const { TransactionSchema } = require('./Transaction')
 
 let UserSchema = new Schema({
   uid: {
@@ -8,7 +9,8 @@ let UserSchema = new Schema({
     required: true
   },
   balance: {type: Number, default: 5000},
-  stocks: [StockSchema]
+  stocks: [StockSchema],
+  transactions: [TransactionSchema]
 })
 
 let User = mongoose.model('User', UserSchema)
