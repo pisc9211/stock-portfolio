@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import app from '../../firebase'
+import PortfolioList from './PortfolioList'
+import Buy from './Buy'
 
-const Portfolio = () => {
+const Portfolio = ({ user }) => {
   return (
     <div className="container">
       <ul className="nav justify-content-end">
@@ -19,10 +21,10 @@ const Portfolio = () => {
       <div className="h2">Portfolio</div>
       <div className="row">
         <div className="col-10 col-md-7 col-lg-8 border border-warning">
-
+          <PortfolioList />
         </div>
         <div className="col-10 col-md-5 col-lg-4 border border-success">
-
+          <Buy user={user}/>
         </div>
       </div>
     </div>

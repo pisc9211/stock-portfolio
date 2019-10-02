@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const { StockSchema } = require('./Url')
+const { StockSchema } = require('./Stock')
 const { TransactionSchema } = require('./Transaction')
 
 let UserSchema = new Schema({

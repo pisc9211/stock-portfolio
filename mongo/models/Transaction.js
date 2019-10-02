@@ -3,8 +3,11 @@ const Schema = mongoose.Schema
 
 let TransactionSchema = new Schema({
   date: {type: Date, default: Date.now()},
-  stockBought: Number,
-  stockPrice: Number
+  stockName: String,
+  tickerName: String,
+  transactionType: String,
+  stockAmount: Number,
+  transactionPrice: Number
 })
 
 let Transaction = mongoose.model('Transaction', TransactionSchema)

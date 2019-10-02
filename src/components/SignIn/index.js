@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import app from '../../firebase'
@@ -23,6 +23,10 @@ const SignIn = ({ history }) => {
     }
 
   }
+
+  useEffect(() => {
+    return () => console.log('goodbye signin')
+  }, []) 
 
   const { currentUser } = useContext(AuthContext)
 
