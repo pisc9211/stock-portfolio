@@ -17,6 +17,7 @@ apiRouter.get("/user/:uid", (req, res) => {
     .catch(e => res.send(e));
 });
 
+
 apiRouter.post('/user/addstock', (req, res) => {
   db.addStock(req.body)
     .then(data => res.json(data))
@@ -27,7 +28,6 @@ apiRouter.post('/user/updatestock', (req, res) => {
   db.updateStock(req.body) 
     .then(data => res.json(data))
     .catch(e => res.send(e))
-  
 })
 
 module.exports = apiRouter

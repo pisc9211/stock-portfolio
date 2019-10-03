@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import SignIn from './SignIn'
 import Register from './Register'
 import Home from './Home'
+import Transaction from './Transaction'
 
 import PrivateRoute from './PrivateRoute'
 
