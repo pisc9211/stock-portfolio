@@ -5,19 +5,32 @@ import PortfolioList from './PortfolioList'
 import Buy from './Buy'
 import axios from 'axios'
 
+import { getApiKey } from '../../helper'
+
 const Portfolio = ({ user, getUser }) => {
-  console.log('user inside portfolio:', user)
   const [stockData, setStockData] = useState(null)
+  const [portfolioTotal, setPortfolioTotal] = useState(null)
 
   useEffect(() => {
     if (user) {
       let stocks = user.stocks.map(stock => stock.tickerName)
       let apiCalls = stocks.map(stock =>
         axios.get(
-          `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_APIKEY}`
+          `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${getApiKey()}`
         ).then(d => d.data)
       )
-      Promise.all(apiCalls).then(d => {console.log('promise.allllll:',d);setStockData(d)})
+      Promise.all(apiCalls).then(d => {
+        let stockData = [];
+        let portfolioTotal = 0;
+
+        for (let i = 0; i < stocks.length; i++) {
+          let combinedData = Object.assign({}, d[i]["Global Quote"], user.stocks[i])
+          stockData.push(combinedData)
+          portfolioTotal += (parseFloat(combinedData["05. price"]) * parseInt(combinedData.stockOwned))
+        }
+        setPortfolioTotal(portfolioTotal.toFixed(2))
+        setStockData(stockData)
+      })
     }
   }, [user])
 
@@ -34,7 +47,7 @@ const Portfolio = ({ user, getUser }) => {
           <button onClick={() => app.auth().signOut()} className="nav-link text-decoration-none">Sign Out</button>
         </li>
       </ul>
-      <div className="h2">Portfolio</div>
+      <div className="h2">Portfolio: ${portfolioTotal}</div>
       <div className="row">
         <div className="col-10 col-md-7 col-lg-8 border border-warning">
           <PortfolioList stocks={user ? user.stocks : null} getUser={getUser}/>
@@ -43,7 +56,7 @@ const Portfolio = ({ user, getUser }) => {
           <Buy user={user} getUser={getUser}/>
         </div>
       </div>
-      {stockData ? stockData.map(stock => <div>{stock["Global Quote"]["02. open"]}</div>) : null}
+      {stockData ? stockData.map((stock, i) => <div key={i} >{stock["05. price"]}</div>) : null}
     </div>
   )
 }

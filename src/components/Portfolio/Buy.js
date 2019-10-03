@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { getApiKey } from '../../helper'
+
 // import SearchItem from './SearchItem'
 
 const Buy = ({ user, getUser }) => {
@@ -10,32 +12,34 @@ const Buy = ({ user, getUser }) => {
     stockName: ''
   })
 
-  // For Search - Possible Feature 
+  const handleOnChange = e => setStocks({...stocks, [e.target.id]: e.target.value})
 
-  // const [suggestions, setSuggestions] = useState([])
-  // const [showMatches, setMatches] = useState(false)
-
-  // useEffect(() => {
-  //   // throttling the api calls bcuz of limited api calls per minute with free api key
-  //   if(stocks.tickerName.length % 2 === 0) {
-  //     axios
-  //       .get(
-  //         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stocks.tickerName}&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_APIKEY}`
-  //       )
-  //       .then(d => {console.log(d.data.bestMatches); return d})
-  //       .then(({data}) => setSuggestions(data.bestMatches))
-  //   }
-  // }, [stocks])
-
-  const handleOnClick = e => {
+  const checkStockExists = e => {
     e.preventDefault()
-    let tickerNames = user.stocks.map(stock => stock.tickerName)
-    let index = tickerNames.indexOf(stocks.tickerName.toLowerCase())
+    axios.get(
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stocks.tickerName}&apikey=${getApiKey()}`
+    ).then(d => {
+      if (d.data["Error Message"]) {
+        alert('this stock does not exist!')
+      } else {
+        let price = parseFloat(d.data["Global Quote"]["05. price"]) * parseInt(stocks.stockAmount)
+        if (price > user.balance) {
+          alert('you do not have enough money to buy these many stocks!')
+        } else {
+          handleOnClick(user.balance - price)
+        }
+      }
+    }).catch(e => console.log('error!',e))
+  }
+
+  const handleOnClick = (newBalance) => {
     let { stockName, stockAmount, tickerName } = stocks;
+    let tickerNames = user.stocks.map(stock => stock.tickerName)
+    let index = tickerNames.indexOf(tickerName.toLowerCase())
     if (index > -1) {
-      axios.post('api/user/updatestock', {uid: user.uid, stockName, tickerName, stockOwned: (user.stocks[index].stockOwned + Number(stockAmount)), stockAmount: Number(stockAmount)}).then(() => getUser())
+      axios.post('api/user/updatestock', {uid: user.uid, stockName, tickerName, stockOwned: (user.stocks[index].stockOwned + Number(stockAmount)), stockAmount: Number(stockAmount), balance: newBalance}).then(() => getUser())
     } else {
-      axios.post('api/user/addstock', {uid: user.uid, tickerName, stockOwned: stockAmount, stockAmount: stockAmount}).then(() => getUser())
+      axios.post('api/user/addstock', {uid: user.uid, tickerName, stockOwned: stockAmount, stockAmount: stockAmount, balance: newBalance}).then(() => getUser())
     }
     setStocks({
       tickerName: "",
@@ -45,7 +49,6 @@ const Buy = ({ user, getUser }) => {
     // getUser()
   }
 
-  const handleOnChange = e => setStocks({...stocks, [e.target.id]: e.target.value})
 
   return (
     <form className="align-items-center mt-5">
@@ -81,7 +84,7 @@ const Buy = ({ user, getUser }) => {
           value={stocks.stockAmount}
         />
       </div>
-      <button onClick={handleOnClick} className="btn btn-primary w-100">Buy Stock!</button>
+      <button onClick={checkStockExists} className="btn btn-primary w-100">Buy Stock!</button>
     </form>
   );
 }

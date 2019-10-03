@@ -37,7 +37,7 @@ let getUser = uid => {
 
 let addStock = data => {
   console.log('running addStock')
-  let { uid, tickerName, stockName, stockOwned, stockAmount, transactionPrice } = data
+  let { uid, tickerName, stockName, stockOwned, stockAmount, transactionPrice, balance } = data
   let newStock = new Stock ({
     tickerName: tickerName,
     stockName: stockName,
@@ -53,12 +53,12 @@ let addStock = data => {
     tranasctionPrice: transactionPrice
   });
 
-  return User.updateOne({ uid: uid }, { $push: { stocks: newStock, transactions: newTransaction }})
+  return User.updateOne({ uid: uid }, { $set:{ balance: balance }, $push: { stocks: newStock, transactions: newTransaction }})
 }
 
 let updateStock = data => {
   console.log('running updateStock')
-  let { uid, tickerName, stockOwned, stockName, stockAmount, transactionPrice } = data
+  let { uid, tickerName, stockOwned, stockName, stockAmount, transactionPrice, balance } = data
 
   let newTransaction = new Transaction({
     uid: uid,
@@ -73,7 +73,7 @@ let updateStock = data => {
     .then(() => 
       User.findOneAndUpdate(
         { uid: uid, 'stocks.tickerName': tickerName }, 
-        { $set: {'stocks.$.stockOwned': stockOwned} }, 
+        { $set: {balance: balance, 'stocks.$.stockOwned': stockOwned} }, 
         { new: true, upsert: true }, 
         (err) => console.error('error:', err))
     )

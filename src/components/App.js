@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { AuthProvider } from '../context/Auth'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
@@ -13,6 +13,12 @@ import './App.css'
 
 
 const App = () => {
+  useEffect(() => {
+    localStorage.setItem('api_index', 0);
+
+    // return () => localStorage.clear()
+  }, [])
+
   return (
     <AuthProvider>
       <Router>
