@@ -9,6 +9,7 @@ const Home = ({ currentUser }) => {
   const [user, updateUser] = useState(null)
 
   const getUser = () => {
+    console.log('calling getuser')
     axios.get(`/api/user/${currentUser.uid}`).then(d => {
       console.log(d.data[0].balance);
       updateUser(d.data[0]);
@@ -18,7 +19,7 @@ const Home = ({ currentUser }) => {
   useEffect(() => {
     console.log('inside useEffect currentUser:', currentUser)
     getUser()
-  }, [currentUser])
+  }, [])
 
   return (
     <>

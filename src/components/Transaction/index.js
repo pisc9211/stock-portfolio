@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import app from '../../firebase'
 
+import TransactionItem from './TransactionItem'
+
 import { Link } from 'react-router-dom'
+import axios from "axios";
 
 const Transaction = ({ transactions }) => {
-  console.log(transactions)
+  console.log('showing transaction component!!!')
   return (
     <div className="container">
       <ul className="nav justify-content-end">
@@ -22,7 +25,7 @@ const Transaction = ({ transactions }) => {
       <div className="row">
         <div className="col-10 col-md-7 col-lg-8 border border-warning">
           <ul>
-            {transactions ? transactions.map(transaction => <li>{transaction.tickerName} - {transaction.stockAmount} bought - at {transaction.date} - {transaction._id}</li>) : null }
+            {transactions ? transactions.map((transaction, i) => <TransactionItem key={transaction.tickerName} transaction={transaction} />) : null }
           </ul>
         </div>
       </div>
