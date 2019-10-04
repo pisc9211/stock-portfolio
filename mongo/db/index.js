@@ -22,18 +22,21 @@ const { Transaction } = require('../models/Transaction');
 // }
 
 let getUser = uid => {
-  return User.findOneAndUpdate({ uid: uid }, {}, {upsert: true, new:  true}, (err, res) => {
+  return User.findOneAndUpdate({ uid: uid }, {}, {upsert: true, new: true}, (err, res) => {
     if (!err) {
+      console.log('res from findoneandupdate', res)
       if (!res) {
         res = new User({uid:uid})
+      
+        res.save((err, doc) => {
+          if (!err) {
+            return doc
+          } else {
+            console.log('errorrrr',err)
+          }
+        })
       }
-      res.save((err, doc) => {
-        if (!err) {
-          return doc
-        } else {
-          throw err
-        }
-      })
+      return res
     }
   })
 }

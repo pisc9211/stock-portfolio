@@ -11,7 +11,6 @@ const Home = ({ currentUser }) => {
   const getUser = () => {
     console.log('calling getuser')
     axios.get(`/api/user/${currentUser.uid}`).then(d => {
-      console.log('what i get back from calling getusers', d.data)
       updateUser(d.data);
     });
   }
