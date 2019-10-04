@@ -9,7 +9,6 @@ const Home = ({ currentUser }) => {
   const [user, updateUser] = useState(null)
 
   const getUser = () => {
-    console.log('calling getuser')
     axios.get(`/api/user/${currentUser.uid}`).then(d => {
       updateUser(d.data);
     });

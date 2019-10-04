@@ -28,7 +28,6 @@ const Buy = ({ user, getUser }) => {
       } else if (d.data["Note"]) {
         alert('exceeded api request limit! please wait!')
       } else {
-        console.log('the data from the stockcheck',d.data)
         let price = parseFloat(d.data["Global Quote"]["05. price"]) * parseInt(stocks.stockAmount)
         if (price > user.balance) {
           alert('you do not have enough money to buy these many stocks!')
@@ -36,7 +35,7 @@ const Buy = ({ user, getUser }) => {
           handleOnClick(user.balance - price, parseFloat(d.data["Global Quote"]["05. price"]))
         }
       }
-    }).catch(e => console.log('error!',e))
+    }).catch(e => console.error(e))
   }
 
   const handleOnClick = (newBalance, transactionPrice) => {

@@ -16,17 +16,13 @@ const SignIn = ({ history }) => {
   const handleOnSubmit = async e => {
     e.preventDefault()
     try {
-      await app.auth().signInWithEmailAndPassword(form.email, form.password).then((user) => console.log(user))
+      await app.auth().signInWithEmailAndPassword(form.email, form.password)
       history.push('/')
     } catch (error) {
       alert(error)
     }
 
   }
-
-  useEffect(() => {
-    return () => console.log('goodbye signin')
-  }, []) 
 
   const { currentUser } = useContext(AuthContext)
 
