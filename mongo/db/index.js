@@ -36,7 +36,7 @@ let getUser = uid => {
 // };
 
 let addStock = data => {
-  console.log('running addStock')
+  console.log('running addStock', data)
   let { uid, tickerName, stockName, stockOwned, stockAmount, transactionPrice, balance } = data
   let newStock = new Stock ({
     tickerName: tickerName,
@@ -50,14 +50,14 @@ let addStock = data => {
     tickerName: tickerName,
     transactionType: "buy",
     stockAmount: stockAmount,
-    tranasctionPrice: transactionPrice
+    transactionPrice: transactionPrice
   });
 
   return User.updateOne({ uid: uid }, { $set:{ balance: balance }, $push: { stocks: newStock, transactions: newTransaction }})
 }
 
 let updateStock = data => {
-  console.log('running updateStock')
+  console.log('running updateStock', data)
   let { uid, tickerName, stockOwned, stockName, stockAmount, transactionPrice, balance } = data
 
   let newTransaction = new Transaction({
@@ -66,7 +66,7 @@ let updateStock = data => {
     tickerName: tickerName,
     transactionType: "buy",
     stockAmount: stockAmount,
-    tranasctionPrice: transactionPrice
+    transactionPrice: transactionPrice
   });
 
   return User.updateOne({ uid: uid }, { $addToSet: { transactions: newTransaction } })

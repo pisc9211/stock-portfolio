@@ -1,10 +1,10 @@
 import React from 'react'
+import PortfolioItem from './PortfolioItem'
 
 const PortfolioList = ({ stocks }) => {
-  // console.log(user.stocks)
   return (
-    <ul className='m-5 list-unstyled'>
-      {stocks ? stocks.map((stock, i) => <li key={stock.tickerName} className="p-5 border border-blue">{stock.tickerName} - {stock.stockOwned}</li>) : null}
+    <ul className='mt-5 m-3 list-unstyled'>
+      {stocks ? stocks.map((stock, i) => <PortfolioItem key={stock.tickerName} i={i} stock={stock} />) : null}
     </ul> 
   )
 }

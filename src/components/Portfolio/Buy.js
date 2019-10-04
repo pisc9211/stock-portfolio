@@ -21,25 +21,28 @@ const Buy = ({ user, getUser }) => {
     ).then(d => {
       if (d.data["Error Message"]) {
         alert('this stock does not exist!')
+      } else if (d.data["Note"]) {
+        alert('exceeded api request limit! please wait!')
       } else {
+        console.log('the data from the stockcheck',d.data)
         let price = parseFloat(d.data["Global Quote"]["05. price"]) * parseInt(stocks.stockAmount)
         if (price > user.balance) {
           alert('you do not have enough money to buy these many stocks!')
         } else {
-          handleOnClick(user.balance - price)
+          handleOnClick(user.balance - price, parseFloat(d.data["Global Quote"]["05. price"]))
         }
       }
     }).catch(e => console.log('error!',e))
   }
 
-  const handleOnClick = (newBalance) => {
+  const handleOnClick = (newBalance, transactionPrice) => {
     let { stockName, stockAmount, tickerName } = stocks;
     let tickerNames = user.stocks.map(stock => stock.tickerName)
     let index = tickerNames.indexOf(tickerName.toLowerCase())
     if (index > -1) {
-      axios.post('api/user/updatestock', {uid: user.uid, stockName, tickerName, stockOwned: (user.stocks[index].stockOwned + Number(stockAmount)), stockAmount: Number(stockAmount), balance: newBalance}).then(() => getUser())
+      axios.post('api/user/updatestock', {uid: user.uid, stockName, tickerName, stockOwned: (user.stocks[index].stockOwned + Number(stockAmount)), stockAmount: Number(stockAmount), balance: newBalance, transactionPrice: transactionPrice.toString()}).then(() => getUser())
     } else {
-      axios.post('api/user/addstock', {uid: user.uid, tickerName, stockOwned: stockAmount, stockAmount: stockAmount, balance: newBalance}).then(() => getUser())
+      axios.post('api/user/addstock', {uid: user.uid, tickerName, stockOwned: stockAmount, stockAmount: stockAmount, balance: newBalance, transactionPrice: transactionPrice.toString()}).then(() => getUser())
     }
     setStocks({
       tickerName: "",
@@ -53,7 +56,7 @@ const Buy = ({ user, getUser }) => {
   return (
     <form className="align-items-center mt-5">
       <h4 className="text-center text-uppercase">
-        Cash: ${user ? user.balance : null}
+        Cash: ${user ? user.balance.toFixed(2) : null}
       </h4>
       <div className="form-label-group my-3">
         <label htmlFor="stock" className="mb-1 pl-2">

@@ -7,7 +7,7 @@ let TransactionSchema = new Schema({
   tickerName: String,
   transactionType: String,
   stockAmount: Number,
-  transactionPrice: Number
+  transactionPrice: String
 })
 
 let Transaction = mongoose.model('Transaction', TransactionSchema)

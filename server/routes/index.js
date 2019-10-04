@@ -20,6 +20,7 @@ apiRouter.post('/user/addstock', (req, res) => {
 })
 
 apiRouter.post('/user/updatestock', (req, res) => {
+  console.log('req.body', typeof req.body.transactionPrice)
   db.updateStock(req.body) 
     .then(data => res.json(data))
     .catch(e => res.send(e))

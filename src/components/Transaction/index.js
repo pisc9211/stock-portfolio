@@ -24,8 +24,8 @@ const Transaction = ({ transactions }) => {
       <div className="h2">Transaction</div>
       <div className="row">
         <div className="col-10 col-md-7 col-lg-8 border border-warning">
-          <ul>
-            {transactions ? transactions.map((transaction, i) => <TransactionItem key={transaction.tickerName} transaction={transaction} />) : null }
+          <ul className="list-unstyled">
+            {transactions ? transactions.map((transaction, i) => <TransactionItem key={i} transaction={transaction} />) : null }
           </ul>
         </div>
       </div>

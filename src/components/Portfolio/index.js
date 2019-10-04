@@ -49,14 +49,13 @@ const Portfolio = ({ user, getUser }) => {
       </ul>
       <div className="h2">Portfolio: ${portfolioTotal}</div>
       <div className="row">
-        <div className="col-10 col-md-7 col-lg-8 border border-warning">
-          <PortfolioList stocks={user ? user.stocks : null} getUser={getUser}/>
+        <div className="col-10 col-md-7 col-lg-8">
+          <PortfolioList stocks={stockData ? stockData : null} />
         </div>
-        <div className="col-10 col-md-5 col-lg-4 border border-success">
+        <div className="col-10 col-md-5 col-lg-4">
           <Buy user={user} getUser={getUser}/>
         </div>
       </div>
-      {stockData ? stockData.map((stock, i) => <div key={i} >{stock["05. price"]}</div>) : null}
     </div>
   )
 }
