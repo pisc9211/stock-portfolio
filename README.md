@@ -1,6 +1,8 @@
 # Stock-Portfolio
 Stock-Portfolio is a web-based stock portoflio app created for the second assessment of the [TTP](https://www.techtalentpipeline.nyc/) interview process.
 
+**Because of the api limit, app will often show NaN for portfolio prices. To fix, please wait a but and refresh.
+
 ## Technologies
 * React
 * Node
@@ -54,3 +56,4 @@ Bootstrapped with [Create React App](https://github.com/facebook/create-react-ap
 - [ ] General Styling
 - [ ] Make transaction's list more clear (price is for single stock, not total price)
 - [ ] Fix the date of purchase. Deployed app seems to save the date as the date of deployment
+- [ ] Smarter api queries to reduce query number to api
