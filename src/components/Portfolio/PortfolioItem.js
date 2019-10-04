@@ -21,7 +21,7 @@ const PortfolioItem = ({ stock, i }) => {
             }
         {stock.tickerName.toUpperCase()}
       </div>
-      <div className="h4 d-inline-block mx-2">{stock.stockOwned} Stock owned @ ${parseFloat(stock["05. price"])}</div>
+      <div className="h4 d-inline-block mx-2">{stock.stockOwned} Stock owned @ ${parseFloat(stock["05. price"]).toFixed(2)}</div>
     </li>
   )
 }
