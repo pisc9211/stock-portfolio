@@ -6,8 +6,9 @@ let getUser = uid => {
   return User.findOneAndUpdate({ uid: uid }, {}, {upsert: true, new: true}, (err, res) => {
     if (!err) {
       if (!res) {
+        // if no user found, create a new user
         res = new User({uid:uid})
-      
+        // save new user to db
         res.save((err, doc) => {
           if (!err) {
             return doc
@@ -37,7 +38,7 @@ let addStock = data => {
     stockAmount: stockAmount,
     transactionPrice: transactionPrice
   });
-
+  // add new stock + new transaction + update the balance of user
   return User.updateOne({ uid: uid }, { $set:{ balance: balance }, $push: { stocks: newStock, transactions: newTransaction }})
 }
 
@@ -53,6 +54,7 @@ let updateStock = data => {
     transactionPrice: transactionPrice
   });
 
+  // add a new transaction + update stock's numberOwned + update user balance
   return User.updateOne({ uid: uid }, { $addToSet: { transactions: newTransaction } })
     .then(() => 
       User.findOneAndUpdate(
@@ -66,7 +68,6 @@ let updateStock = data => {
 
 module.exports = {
   getUser,
-  // addTransaction,
   updateStock,
   addStock
 }
