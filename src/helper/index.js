@@ -1,3 +1,4 @@
+// function to return one of 3 api keys based on number in localstorage
 export const getApiKey = () => {
   let index = Number(localStorage.getItem('api_index'))
   localStorage.setItem('api_index', index+1)

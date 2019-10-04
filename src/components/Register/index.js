@@ -17,7 +17,9 @@ const Register = ({ history }) => {;
   const handleOnSubmit = async e => {
     e.preventDefault()
     try {
+      // create firebase account
       await app.auth().createUserWithEmailAndPassword(form.email, form.password)
+      // add displayName to account
       await app.auth().currentUser.updateProfile({
         displayName: `${form.firstName} ${form.lastName}`
       })

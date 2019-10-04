@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import app from '../../firebase'
@@ -24,8 +24,8 @@ const SignIn = ({ history }) => {
 
   }
 
+  // check context for google auth user and redirect to home page if exists
   const { currentUser } = useContext(AuthContext)
-
   if (currentUser) return <Redirect to="/" />
 
   return (

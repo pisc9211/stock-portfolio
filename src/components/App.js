@@ -13,9 +13,10 @@ import './App.css'
 
 const App = () => {
   useEffect(() => {
+    // api_index used for alternating between 3 different api keys
     localStorage.setItem('api_index', 0);
 
-    // return () => localStorage.clear()
+    return () => localStorage.clear()
   }, [])
 
   return (

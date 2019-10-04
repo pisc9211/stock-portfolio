@@ -22,7 +22,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "mongo": "npx nodemon mongo",
-    "dev": "concurrently \"npm start\" \"npx nodemon server\""
+    "dev": "concurrently \"react-scripts start\" \"npx nodemon server\""
   },
   "eslintConfig": {
     "extends": "react-app"
