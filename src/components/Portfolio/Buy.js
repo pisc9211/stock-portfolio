@@ -16,6 +16,10 @@ const Buy = ({ user, getUser }) => {
 
   const checkStockExists = e => {
     e.preventDefault()
+    if (parseFloat(stocks.stockAmount) !== parseInt(stocks.stockAmount) || parseInt(stocks.stockAmount) < 0) {
+      alert('Invalid Quanity. Please only put whole numbers!')
+      return
+    }
     axios.get(
       `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stocks.tickerName}&apikey=${getApiKey()}`
     ).then(d => {
@@ -85,6 +89,8 @@ const Buy = ({ user, getUser }) => {
           placeholder="Quantity"
           onChange={handleOnChange}
           value={stocks.stockAmount}
+          min="1"
+          step="1"
         />
       </div>
       <button onClick={checkStockExists} className="btn btn-primary w-100">Buy Stock!</button>
