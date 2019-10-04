@@ -1,68 +1,56 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Stock-Portfolio
+Stock-Portfolio is a web-based stock portoflio app created for the second assessment of the [TTP](https://www.techtalentpipeline.nyc/) interview process.
 
-## Available Scripts
+## Technologies
+* React
+* Node
+* Express
+* MongoDB + Mongoose
+* Firebase
+* Bootstrap
+* Moment
+* API: [Alpha Vantage](https://www.alphavantage.co/)
 
-In the project directory, you can run:
+Bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-### `npm start`
+## Features/Requirements
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Create a new account with my name, email, and password.
+  - - [x] Default the user’s cash account balance to $5000.00 USD.
+  - - [x] A user can only register once with any given email.
+  
+![Register Demo](http://g.recordit.co/EqyOE2fZ1t.gif)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
-### `npm test`
+2. I want to authenticate via email and password so that I can access my account.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Authenticate Demo](http://g.recordit.co/R33QdY8d53.gif)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. I want to buy shares of stock at its current price by specifying its ticker symbol and the number of shares so that I can invest.
+  - - [x] A user can only buy whole number quantities of shares.
+  - - [x] A user can only buy shares if they have enough cash in their account for a given purchase.
+  - - [x] A user can only buy shares if the ticker symbol is valid.
+  
+  ![Buying Stock Demo](http://g.recordit.co/vWGw5BYhcg.gif)
+  
+4. I want to view a list of all transactions I’ve made to date (trades) so that I can perform an audit.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+5. I want to view my portfolio (a list of all the stocks I own along with their current values) so that I can review performance.
+- - [x] Current values should be based on the latest price and quantity owned for a given stock.
+- - [x] Each stock owned should only appear once.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+6. I’d like to see the font color of stock symbols and current prices inmy portfolio change dynamically to indicate performance.
+- - [x] Display red when the current price is less than the day’s open price.
+- - [x] Display grey when the current price is equal to the day’s open price.
+- - [x] Display green when the current price is greater than the day’s open price.
+  
 
-### `npm run eject`
+![Transaction + Ticker Color Demo](http://g.recordit.co/JGtFBtzYzM.gif)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## TODO
+- [ ] Fix register button on deployed app color
+- [ ] General Styling
+- [ ] Make transaction's list more clear (price is for single stock, not total price)
+- [ ] Fix the date of purchase. Deployed app seems to save the date as the date of deployment
