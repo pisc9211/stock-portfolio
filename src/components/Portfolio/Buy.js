@@ -56,7 +56,7 @@ const Buy = ({ user, getUser }) => {
   return (
     <form className="align-items-center mt-5">
       <h4 className="text-center text-uppercase">
-        Cash: ${user ? user.balance.toFixed(2) : null}
+        Balance: ${user ? user.balance.toFixed(2) : null}
       </h4>
       <div className="form-label-group my-3">
         <label htmlFor="stock" className="mb-1 pl-2">
