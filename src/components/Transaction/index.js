@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import app from '../../firebase'
 
 import TransactionItem from './TransactionItem'
 
 import { Link } from 'react-router-dom'
-import axios from "axios";
 
 const Transaction = ({ transactions }) => {
   return (

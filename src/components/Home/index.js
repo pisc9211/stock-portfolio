@@ -16,7 +16,6 @@ const Home = ({ currentUser }) => {
   }
 
   useEffect(() => {
-    console.log('inside useEffect currentUser:', currentUser)
     getUser()
   }, [])
 

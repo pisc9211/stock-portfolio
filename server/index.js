@@ -13,7 +13,7 @@ app.use(
 app.use('/api', apiRouter);
 
 // When deploying
-// app.use(express.static(path.join(__dirname, '/../build')))
+app.use(express.static(path.join(__dirname, '/../build')))
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(`listening to port ${process.env.PORT || 5000}`)
