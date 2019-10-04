@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import axios from "axios";
 
 const Transaction = ({ transactions }) => {
-  console.log('showing transaction component!!!')
   return (
     <div className="container">
       <ul className="nav justify-content-end">

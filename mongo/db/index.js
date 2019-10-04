@@ -3,37 +3,40 @@ const { Stock } = require('../models/Stock');
 const { Transaction } = require('../models/Transaction');
 
 
+// let getUser = uid => {
+//   console.log('running hte getUser fn')
+//   return User.find({ uid: uid }, async function(err, result) {
+//     console.log(result.length)
+//     if (result.length === 0) {
+//       let user = new User({
+//         uid: uid
+//       });
+//       console.log('created new user, now have to save')
+//       await user.save(err => {
+//         if (err) console.error(err);
+//         else console.log("new user!");
+//       })
+//       return await User.find({uid:uid})
+//     }
+//   })
+// }
+
 let getUser = uid => {
-  console.log('running hte getUser fn')
-  return User.find({ uid: uid }, function(err, result) {
-    console.log(result.length)
-    if (result.length === 0) {
-      let user = new User({
-        uid: uid
-      });
-      console.log('created new user, now have to save')
-      user.save(err => {
-        if (err) console.error(err);
-        else console.log("new user!");
+  return User.findOneAndUpdate({ uid: uid }, {}, {upsert: true, new:  true}, (err, res) => {
+    if (!err) {
+      if (!res) {
+        res = new User({uid:uid})
+      }
+      res.save((err, doc) => {
+        if (!err) {
+          return doc
+        } else {
+          throw err
+        }
       })
     }
   })
 }
-
-// let addTransaction = data => {
-//   console.log('running addtransaction')
-//   let { uid, stockName, tickerName, stockAmount, tranasctionPrice } = data
-//   let newTransaction = new Transaction({
-//     uid: uid,
-//     stockName: stockName,
-//     tickerName: tickerName,
-//     transactionType: 'buy',
-//     stockAmount: stockAmount,
-//     tranasctionPrice: tranasctionPrice
-//   })
-
-//   return User.updateOne({ uid: uid }, { $push: { transactions: newTransaction } })
-// };
 
 let addStock = data => {
   console.log('running addStock', data)
