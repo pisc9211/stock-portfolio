@@ -7,7 +7,7 @@ const TransactionItem = ({ transaction }) => {
   return (
     <li className="p-3 border border-blue">
       {transaction.tickerName.toUpperCase()} - {transaction.stockAmount} bought - @{" "}
-      {date} for ${transaction.transactionPrice}
+      {date} for ${Number(transaction.transactionPrice).toFixed(2)}
     </li>
   );
 }
