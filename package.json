@@ -9,7 +9,7 @@
     "express": "^4.17.1",
     "firebase": "^7.0.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.7.3",
+    "mongoose": "^5.7.5",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-icons": "^3.7.0",
